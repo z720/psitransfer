@@ -13,6 +13,7 @@ module.exports = {
     "604800": "1 Week",
     "1209600": "2 Weeks"
   },
+  "sessionSecret": "secret",
   "defaultRetention": 3600,
   "adminPass": "admin"
   // "sslKeyFile": './tmp/cert.key',

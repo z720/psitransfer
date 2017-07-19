@@ -1,8 +1,12 @@
 <template lang="pug">
   .upload-app#uploadApp
-    a.btn.btn-sm.btn-info.btn-new-session(@click='newSession()', title='New Upload')
-      icon.fa-fw(name="cloud-upload")
-      span.hidden-xs  new upload
+    nav.top
+      a.btn.btn-sm.btn-info.btn-new-session(@click='newSession()', title='New Upload')
+        icon.fa-fw(name="cloud-upload")
+        span.hidden-xs  new upload
+      a.btn.btn-sm.btn-info.btn-loggout(href='/logout', title='Logout')
+        icon.fa-fw(name="times-circle")
+        span.hidden-xs  Logout
     .alert.alert-danger(v-show="error")
       strong
         icon.fa-fw(name="exclamation-triangle")
@@ -49,6 +53,7 @@
   import Files from './Upload/Files.vue';
   import Clipboard from './common/Clipboard.vue'
   import 'vue-awesome/icons/cloud-upload';
+  import 'vue-awesome/icons/times-circle';
   import 'vue-awesome/icons/upload';
   import 'vue-awesome/icons/check';
   import 'vue-awesome/icons/spinner';

@@ -11,11 +11,14 @@ const fs = require('fs');
  * fid: {sid}++{key}
  */
 
+app.set('title', config.title || 'PsiTransfer+');
+app.set('host', config.host || process.env.hostname);
+
 let server;
 if(config.port) {
   // HTTP Server
   server = app.listen(config.port, config.iface, () => {
-    console.log(`PsiTransfer listening on http://${config.iface}:${config.port}`);
+    console.log(`${app.get('title')} ${process.env.NODE_ENV} listening on http://${config.iface}:${config.port}`);
   });
 }
 
@@ -28,14 +31,14 @@ if(config.sslPort && config.sslKeyFile && config.sslCertFile) {
   };
   httpsServer = https.createServer(sslOpts, app)
     .listen(config.sslPort, config.iface, () => {
-      console.log(`PsiTransfer listening on https://${config.iface}:${config.sslPort}`);
+      console.log(`${app.get('title')} listening on https://${config.iface}:${config.sslPort}`);
     });
 }
 
 
 // graceful shutdown
 function shutdown() {
-  console.log('PsiTransfer shutting down...');
+  console.log(`${app.get('title')} shutting down...`);
   if(server) {
     server.close(() => {
       server = false;

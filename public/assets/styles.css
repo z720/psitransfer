@@ -58,10 +58,13 @@ body > .container {
   height: 40px;
   line-height: 40px;
 }
-.btn-new-session {
+nav.top, :not(.top) > .btn-new-session {
   position: absolute;
   top: 15px;
   right: 15px;
+}
+nav.top .btn {
+  margin-left: 10px;
 }
 .well h3 {
   margin-top: 0;

@@ -24,6 +24,7 @@
           tr
             th SID
             th Created
+            th Created By
             th Downloaded
             th Expire
             th Size
@@ -34,6 +35,7 @@
                 | {{ sid }}
                 icon.pull-right(name="key", v-if="sum[sid].password", title="Password protected")
               td {{ sum[sid].created | date }}
+              td {{ sum[sid].createdBy }}
               td
                 template(v-if="sum[sid].lastDownload") {{ sum[sid].lastDownload | date}}
                 template(v-else="") -
@@ -46,6 +48,7 @@
               tr.file
                 td {{ file.metadata.name }}
                 td {{+file.metadata.createdAt | date}}
+                td {{ file.metadata.createdBy }}
                 td
                   template(v-if="file.metadata.lastDownload") {{ +file.metadata.lastDownload | date}}
                   template(v-else="") -
@@ -55,8 +58,9 @@
                 td.text-right {{ humanFileSize(file.size) }}
         tfoot
           tr
-            td(colspan="3")
-            td.text-right(colspan="2") Sum: {{ humanFileSize(sizeSum) }}
+            td(colspan="4")
+            td.text-right Sum:
+            td.text-right {{ humanFileSize(sizeSum) }}
 
 </template>
 
@@ -129,6 +133,9 @@
             bucketSum.size += file.size;
             if(file.metadata._password) {
               bucketSum.password = true;
+            }
+            if(file.metadata.createdBy) {
+              bucketSum.createdBy = file.metadata.createdBy;
             }
             if(+file.metadata.createdAt < bucketSum.created) {
               bucketSum.created = +file.metadata.createdAt;

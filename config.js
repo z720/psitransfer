@@ -1,6 +1,7 @@
 'use strict';
 const path = require('path');
 const fsp = require('fs-promise');
+const crypto = require('crypto');
 
 // Default Config
 // Do not edit this, generate a config.<ENV>.js for your NODE_ENV
@@ -25,6 +26,15 @@ const config =  {
     "1209600": "2 Weeks",
     "2419200": "4 Weeks",
     "4838400": "8 Weeks"
+  },
+  "passwordless": true,
+  "sessionSecret": crypto.randomBytes(16).toString('hex'),
+  "smtp": {
+    "user": 'anonymous',
+    "password": '',
+    "host": "localhost",
+    "port": 25,
+    "ssl": false
   },
   // admin password, set to false to disable /admin page
   "adminPass": false,
