@@ -15,7 +15,10 @@ module.exports = {
   },
   "sessionSecret": "secret",
   "defaultRetention": 3600,
-  "adminPass": "admin"
+  //"adminPass": "admin",
+  "admins": [
+    "root@localhost"
+  ]
   // "sslKeyFile": './tmp/cert.key',
   // "sslCertFile": './tmp/cert.pem',
 };
