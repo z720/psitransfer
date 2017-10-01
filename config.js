@@ -29,12 +29,15 @@ const config =  {
   },
   "passwordless": true,
   "sessionSecret": crypto.randomBytes(16).toString('hex'),
+  // see https://nodemailer.com/smtp/
   "smtp": {
-    "user": 'anonymous',
-    "password": '',
+    "from": "psitransfer",
+    "auth": {
+      "user": 'anonymous',
+      "password": ''
+    },
     "host": "localhost",
     "port": 25,
-    "ssl": false
   },
   "smtp_password": false,
   "smtp_user": false,
