@@ -23,6 +23,10 @@ RUN mkdir /data && \
     chown node /data && \
     npm install --quiet 1>/dev/null
 
+# Prepare sessions working dir
+RUN mkdir ./sessions && \
+    chown node ./sessions
+
 EXPOSE 3000
 VOLUME ["/data"]
 

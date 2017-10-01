@@ -36,8 +36,11 @@ const config =  {
     "port": 25,
     "ssl": false
   },
+  "smtp_password": false,
+  "smtp_user": false,
   // admin password, set to false to disable /admin page
   "adminPass": false,
+  "admins": [],
   "defaultRetention": 604800,
   // expire every file after maxAge (eg never downloaded one-time files)
   "maxAge": 3600*24*75, // 75 days
