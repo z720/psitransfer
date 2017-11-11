@@ -21,11 +21,13 @@ RUN cd app && \
 # Install backend dependencies
 RUN mkdir /data && \
     chown node /data && \
+    chmod u+rw /data && \
     npm install --quiet 1>/dev/null
 
 # Prepare sessions working dir
 RUN mkdir ./sessions && \
-    chown node ./sessions
+    chown node ./sessions && \
+    chmod u+rw ./sessions
 
 EXPOSE 3000
 VOLUME ["/data"]
