@@ -1,7 +1,7 @@
 <template lang="pug">
   .download-app
     a.btn.btn-sm.btn-info.btn-new-session(@click='newSession()', title='New Upload')
-      icon.fa-fw(name="cloud-upload")
+      icon.fa-fw(name="cloud-upload-alt")
       span.hidden-xs  new upload
     .alert.alert-danger(v-show="error")
       strong
@@ -43,7 +43,7 @@
                 i.pull-right.fa.fa-check.text-success.downloaded(v-show='file.downloaded')
                 p
                   strong {{ file.metadata.name }}
-                  small.file-size(v-if="Number.isFinite(file.size)") ({{ humanFileSize(file.size) }})
+                  small.file-size(v-if="isFinite(file.size)") ({{ humanFileSize(file.size) }})
                 p {{ file.metadata.comment }}
 
     preview-modal(:preview="preview", :files="previewFiles", :max-size="config.maxPreviewSize", @close="preview=false")
@@ -61,7 +61,7 @@
   import Clipboard from './common/Clipboard.vue';
   import PreviewModal from './Download/PreviewModal.vue';
 
-  import 'vue-awesome/icons/cloud-upload';
+  import 'vue-awesome/icons/cloud-upload-alt';
   import 'vue-awesome/icons/exclamation-triangle';
   import 'vue-awesome/icons/copy';
   import 'vue-awesome/icons/check';
@@ -74,7 +74,7 @@
     if(file.metadata.retention === 'one-time') return false;
     // no preview for files size > 2MB
     if(file.size > maxSize) return false;
-    if(file.metadata.type && file.metadata.type.startsWith('image/')) return 'image';
+    if(file.metadata.type && file.metadata.type.match(/^image\/.*/)) return 'image';
     else if(file.metadata.type && file.metadata.type.match(/(text\/|xml|json|javascript|x-sh)/)
       || file.metadata.name && file.metadata.name
         .match(/\.(jsx|vue|sh|pug|less|scss|sass|c|h|conf|log|bat|cmd|lua|class|java|py|php|yml|sql|md)$/)) {
@@ -117,7 +117,13 @@
           alert('One-Time Download: File is not available anymore.');
           return;
         }
-        document.location.href = file.url;
+        const aEl = document.createElement('a');
+        aEl.setAttribute('href', file.url);
+        aEl.setAttribute('download', file.metadata.name);
+        aEl.style.display = 'none';
+        document.body.appendChild(aEl);
+        aEl.click();
+        document.body.removeChild(aEl);
         file.downloaded = true;
       },
 
@@ -174,6 +180,11 @@
 
       newSession() {
         document.location.href = '/';
+      },
+
+      isFinite(value) {
+        if(typeof value !== 'number') return false;
+        return !(value !== value || value === Infinity || value === -Infinity);
       }
     },
 

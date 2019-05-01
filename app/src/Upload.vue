@@ -2,7 +2,7 @@
   .upload-app#uploadApp
     nav.top
       a.btn.btn-sm.btn-info.btn-new-session(@click='newSession()', title='New Upload')
-        icon.fa-fw(name="cloud-upload")
+        icon.fa-fw(name="cloud-upload-alt")
         span.hidden-xs  new upload
       a.btn.btn-sm.btn-info.btn-loggout(href='/logout', title='Logout')
         icon.fa-fw(name="times-circle")
@@ -47,12 +47,12 @@
 
 <script type="text/babel">
   "use strict";
-  import {mapState, mapGetters} from 'vuex';
+  import { mapState, mapGetters } from 'vuex';
 
   import Settings from './Upload/Settings.vue';
   import Files from './Upload/Files.vue';
   import Clipboard from './common/Clipboard.vue'
-  import 'vue-awesome/icons/cloud-upload';
+  import 'vue-awesome/icons/cloud-upload-alt';
   import 'vue-awesome/icons/times-circle';
   import 'vue-awesome/icons/upload';
   import 'vue-awesome/icons/check';
@@ -73,7 +73,7 @@
       ...mapState(['error', 'disabled', 'state']),
       ...mapState('upload', ['sid', 'files']),
       ...mapGetters('upload', ['percentUploaded', 'shareUrl']),
-      mailLnk: function(){
+      mailLnk: function() {
         return this.$store.state.config
           && this.$store.state.config.mailTemplate
           && this.$store.state.config.mailTemplate.replace('%%URL%%', this.shareUrl);
@@ -82,9 +82,9 @@
 
     watch: {
       state: function(val) {
-        if(val === 'uploaded' || val === 'uploadError') {
+        if (val === 'uploaded' || val === 'uploadError') {
           const el = document.getElementById('uploadApp');
-          if(!el || !el.scrollIntoView) return;
+          if (!el || !el.scrollIntoView) return;
           el.scrollIntoView(true);
         }
       }
@@ -92,14 +92,10 @@
 
     methods: {
       newSession() {
-        if(!confirm('Create a new upload session?')) return;
+        if (!confirm('Create a new upload session?')) return;
         document.location.reload();
       }
     }
 
   }
 </script>
-
-<style>
-
-</style>

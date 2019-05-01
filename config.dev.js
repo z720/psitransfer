@@ -14,7 +14,7 @@ module.exports = {
     "1209600": "2 Weeks"
   },
   "sessionSecret": "secret",
-  "defaultRetention": 3600,
+  "defaultRetention": "3600",
   //"adminPass": "admin",
   "admins": [
     "root@localhost"

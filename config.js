@@ -15,6 +15,10 @@ const config =  {
   "sslPort": 8443,
   "sslKeyFile": false,
   "sslCertFile": false,
+  // Force redirect to https
+  // can be true or a specific url like https://example.com:8443
+  // keep empty to disable
+  "forceHttps": '',
   // retention options in seconds:label
   "retentions": {
     "one-time": "one time download",
@@ -44,7 +48,7 @@ const config =  {
   // admin password, set to false to disable /admin page
   "adminPass": false,
   "admins": [],
-  "defaultRetention": 604800,
+  "defaultRetention": "604800",
   // expire every file after maxAge (eg never downloaded one-time files)
   "maxAge": 3600*24*75, // 75 days
   // maximum file-size for previews in byte
@@ -52,7 +56,12 @@ const config =  {
   "mailTemplate": 'mailto:?subject=File Transfer&body=You can download the files here: %%URL%%',
   // see https://github.com/expressjs/morgan
   // set to false to disable logging
-  "accessLog": ':date[iso] :method :url :status :response-time :remote-addr'
+  "accessLog": ':date[iso] :method :url :status :response-time :remote-addr',
+  //use to set custom  upload url
+  "uploadAppPath": '/',
+  // download notification webhook
+  // invokes an HTTP POST to this url whenever a file was downloaded
+  "fileDownloadedWebhook": null
 };
 
 
